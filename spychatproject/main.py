@@ -18,22 +18,24 @@ if len(spy_name)>0:
     #Asking the user for his/her age and converting to integer value
     spy_age=int(input("What is your age?\n"))
     #checking if age is valid or not
-    if spy_age < 18 and spy_age > 60:
-       print("Sorry! your age is not valid to become a spy")
-    else:
-    # Asking user for rating
+    if spy_age > 18 and spy_age < 60:
         spy_rating = float(input("What is your rating(out of 5?)\n"))
-    # checking the range of spy_rating and displaying the message
+        # checking the range of spy_rating and displaying the message
         if spy_rating > 4.5:
             print("you are very good")
         elif spy_rating >= 3.5 and spy_rating < 4.5:
             print("you are one of good ones")
         elif spy_rating >= 2.5 and spy_rating < 3.5:
-             print("you can always do better")
+            print("you can always do better")
         else:
-             print("we can always use somebody to help you in the office")
-          # Displaying authentication complete and displaying a welcome message to user
-        print("Authentication complete. Welcome " + spy_salutation + "" + spy_name + " age:" + str(spy_age) + " Proud to have you onboard")
+            print("we can always use somebody to help you in the office")
+            # Displaying authentication complete and displaying a welcome message to user
+        print("Authentication complete. Welcome " + spy_salutation + "" + spy_name + " age:" + str(
+            spy_age) + " Proud to have you onboard")
+
+    else:
+        print("Sorry! your age is not valid to become a spy")
+
 else:
     print("Please enter a valid name")
 
