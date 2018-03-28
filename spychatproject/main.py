@@ -9,7 +9,7 @@
 #importing Spy_details file
 import Spy_details
 
-status_messages=['My name is krishan','I am from MRIIRS','I AM IN 6TH SEM']
+status_messages=['Busy at office','Watching movie','Surfing web']
 
 def add_status(current_status):
     updated_status=None
@@ -25,12 +25,12 @@ def add_status(current_status):
             count=count+1
         status_choice=int(input("Select status you want to set\n"))
         new_status=status_messages[status_choice-1]
-        print(new_status+" has been selected")
+        return new_status
     else :
         updated_status=input("enter status:\n")
         if len(updated_status)>0:
             status_messages.append(updated_status)
-            print("Status "+updated_status+" has been added")
+            print("new status has been added\n")
         else:
             print("please enter a valid status")
     return updated_status
@@ -45,9 +45,11 @@ def start_chat(name,salutation,age,rating):
     continue_app=True
     while(continue_app):
       if answer==1:
-          # status=input("enter status:\n")
+
 
           current= add_status(current)
+          print('status"'+current+'"'+"has been set\n")
+
           print("%s %s status has been added"%(salutation,name))
       elif answer==6:
           continue_app=False
