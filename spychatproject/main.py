@@ -9,26 +9,59 @@
 #importing Spy_details file
 import Spy_details
 
+status_messages=['My name is krishan','I am from MRIIRS','I AM IN 6TH SEM']
+
+def add_status(current_status):
+    updated_status=None
+    if len(current_status)>0:
+        print("You current status is:\n"+current_status)
+    else:
+        print("you didn't enter any status")
+    choice=input("do you want to select status from you old status or add a new one ?(old/new):\n")
+    if choice.lower()=='old':
+        count=0;
+        for message in status_messages:
+            print(str(count+1) + " ." + message)
+            count=count+1
+        status_choice=int(input("Select status you want to set\n"))
+        new_status=status_messages[status_choice-1]
+        print(new_status+" has been selected")
+    else :
+        updated_status=input("enter status:\n")
+        if len(updated_status)>0:
+            status_messages.append(updated_status)
+            print("Status "+updated_status+" has been added")
+        else:
+            print("please enter a valid status")
+    return updated_status
+
 #defining a function menu_choice to display message for default user
-def menu_choice(name,salutation,age,rating):
-    menu_choice_1="1. To add status\n"+ "2.Quit\n"
-    answer = int(input(menu_choice_1))
-    while(answer!=2):
+def start_chat(name,salutation,age,rating):
+    menu_choice="1.Add a status update\n"+"2.Add a friend\n"+"3.Send a secret message\n"+"4.Read a secret messsage\n"+"5.Read chat from a user\n"+"6.Close Application\n"+"Enter choice:\n"
 
+    current = ""
+    answer = int(input(menu_choice))
+
+    continue_app=True
+    while(continue_app):
       if answer==1:
-          status=input("enter status:\n")
-          print("%s %s status has been added"%(salutation,name))
+          # status=input("enter status:\n")
 
-      answer = int(input(menu_choice_1))
+          current= add_status(current)
+          print("%s %s status has been added"%(salutation,name))
+      elif answer==6:
+          continue_app=False
+
+      answer = int(input(menu_choice))
 
     print("Quitting")
 
 #asking user if he/she want to create a new user or continue with default
 user_choice=input("Do you want to continue as " +Spy_details.default_spy_salutation+Spy_details.default_spy_name+" or create a new one (def or new):\n")
 
-if user_choice=="def":
-    menu_choice(Spy_details.default_spy_name,Spy_details.default_spy_salutation,Spy_details.default_spy_age,Spy_details.default_spy_rating)
-elif user_choice=="new":
+if user_choice.lower()=="def":
+    start_chat(Spy_details.default_spy_name,Spy_details.default_spy_salutation,Spy_details.default_spy_age,Spy_details.default_spy_rating)
+elif user_choice.lower()=="new":
     #Greeting the user
     print("Welcome to Spy Chat")
     print("What's up!")
@@ -57,6 +90,8 @@ elif user_choice=="new":
                  print("we can always use somebody to help you in the office")
                  # Displaying authentication complete and displaying a welcome message to user
              print("Authentication complete. Welcome %s %s age: %d Proud to have you onboard"%(spy_salutation,spy_name,spy_age))
+
+             start_chat(spy_name,spy_salutation,spy_age,spy_rating)
 
          else:
              print("Sorry! your age is not valid to become a spy")
