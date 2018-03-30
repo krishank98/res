@@ -10,7 +10,10 @@
 import Spy_details
 
 status_messages=['Busy at office','Watching movie','Surfing web']
-
+Friends_name=[]
+Friends_age=[]
+Friends_rating=[]
+Friends_is_online=[]
 def add_status(current_status):
     updated_status=None
     if len(current_status)>0:
@@ -35,6 +38,21 @@ def add_status(current_status):
             print("please enter a valid status")
     return updated_status
 
+def add_friend():
+    friend_name=input("enter you friend_name:\n")
+    friend_salutation=input("mr. or ms.:\n")
+    new_name=friend_salutation+" "+friend_name
+    friend_age=int(input("what is age of your friend:\n"))
+    friend_rating=float(input("what is rating of your friend:\n"))
+    if len(friend_name)> 0 and friend_age >17 and friend_rating>0:
+        Friends_name.append(new_name)
+        Friends_age.append(friend_age)
+        Friends_rating.append(Friends_rating)
+        Friends_is_online.append(True)
+    else:
+        print("Please enter right details")
+    return len(new_name)
+
 #defining a function menu_choice to display message for default user
 def start_chat(name,salutation,age,rating):
     menu_choice="1.Add a status update\n"+"2.Add a friend\n"+"3.Send a secret message\n"+"4.Read a secret messsage\n"+"5.Read chat from a user\n"+"6.Close Application\n"+"Enter choice:\n"
@@ -45,12 +63,12 @@ def start_chat(name,salutation,age,rating):
     continue_app=True
     while(continue_app):
       if answer==1:
-
-
           current= add_status(current)
           print('status"'+current+'"'+"has been set\n")
 
           print("%s %s status has been added"%(salutation,name))
+      elif answer==2:
+          add_friend()
       elif answer==6:
           continue_app=False
 
