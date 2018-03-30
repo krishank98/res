@@ -7,13 +7,14 @@
 #Objective For default user import details from spy_details
 
 #importing Spy_details file
-import Spy_details
+
+from Spy_details import default_spy
 
 status_messages=['Busy at office','Watching movie','Surfing web']
-Friends_name=[]
-Friends_age=[]
-Friends_rating=[]
-Friends_is_online=[]
+
+Friends=[]
+
+
 def add_status(current_status):
     updated_status=None
     if len(current_status)>0:
@@ -39,19 +40,24 @@ def add_status(current_status):
     return updated_status
 
 def add_friend():
-    friend_name=input("enter you friend_name:\n")
-    friend_salutation=input("mr. or ms.:\n")
-    new_name=friend_salutation+" "+friend_name
-    friend_age=int(input("what is age of your friend:\n"))
-    friend_rating=float(input("what is rating of your friend:\n"))
-    if len(friend_name)> 0 and friend_age >17 and friend_rating>0:
-        Friends_name.append(new_name)
-        Friends_age.append(friend_age)
-        Friends_rating.append(Friends_rating)
-        Friends_is_online.append(True)
+    new_friend = {
+        'name':'',
+        'salutation':'' ,
+        'age':'',
+        'rating':'',
+
+    }
+    new_friend['name']=input("enter you friend_name:\n")
+    new_friend['salutation']=input("mr. or ms.:\n")
+    new_friend['name']=new_friend['name']+" "+new_friend['salutation']
+    new_friend['age']=int(input("what is age of your friend:\n"))
+    new_friend['rating']=float(input("what is rating of your friend:\n"))
+    if len(new_friend['name'])> 0 and new_friend['age'] >17 and new_friend['rating']>0:
+        Friends.append(new_friend)
+
     else:
         print("Please enter right details")
-    return len(new_name)
+    return len(Friends)
 
 #defining a function menu_choice to display message for default user
 def start_chat(name,salutation,age,rating):
@@ -68,7 +74,8 @@ def start_chat(name,salutation,age,rating):
 
           print("%s %s status has been added"%(salutation,name))
       elif answer==2:
-          add_friend()
+          number_of_friends=add_friend()
+          print("you have %d friends"%(number_of_friends))
       elif answer==6:
           continue_app=False
 
@@ -77,10 +84,10 @@ def start_chat(name,salutation,age,rating):
     print("Quitting")
 
 #asking user if he/she want to create a new user or continue with default
-user_choice=input("Do you want to continue as " +Spy_details.default_spy_salutation+Spy_details.default_spy_name+" or create a new one (def or new):\n")
+user_choice=input("Do you want to continue as " +default_spy['salutation']+default_spy['name']+" or create a new one (def or new):\n")
 
 if user_choice.lower()=="def":
-    start_chat(Spy_details.default_spy_name,Spy_details.default_spy_salutation,Spy_details.default_spy_age,Spy_details.default_spy_rating)
+    start_chat(default_spy['name'],default_spy['salutation'],default_spy['age'],default_spy['rating'])
 elif user_choice.lower()=="new":
     #Greeting the user
     print("Welcome to Spy Chat")
