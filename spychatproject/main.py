@@ -9,6 +9,8 @@
 #importing Spy_details file
 
 from Spy_details import default_spy
+from steganography.steganography import Steganography
+import datetime
 
 status_messages=['Busy at office','Watching movie','Surfing web']
 
@@ -48,7 +50,7 @@ def add_friend():
 
     }
     new_friend['name']=input("enter you friend_name:\n")
-    new_friend['salutation']=input("mr. or ms.:\n")
+    new_friend['salutation']=input("Mr. or Ms. :\n")
     new_friend['name']=new_friend['name']+" "+new_friend['salutation']
     new_friend['age']=int(input("what is age of your friend:\n"))
     new_friend['rating']=float(input("what is rating of your friend:\n"))
@@ -58,6 +60,53 @@ def add_friend():
     else:
         print("Please enter right details")
     return len(Friends)
+
+
+def select_a_friend() :
+  item_number = 0
+
+  for friend in Friends:
+    print ("%d  %s" % ((item_number + 1), friend['name']))
+
+    item_number = item_number + 1
+
+  friend_choice = int(input("Choose from your friends"))
+  friend_choice_position = friend_choice - 1
+
+  return friend_choice_position
+
+
+def send_message():
+  friend_choice = select_a_friend()
+
+  original_image = input("What is the name of the image?")
+  output_path = 'fib1.png'
+  text = input("What do you want to say?")
+  Steganography.encode(original_image, output_path, text)
+  new_chat = {
+      "message": text,
+      "time": datetime.now(),
+      "sent_by_me": True
+  }
+
+  Friends[friend_choice]['chats'].append(new_chat)
+  print ("Your secret message is ready!")
+
+
+def read_message():
+  sender = select_a_friend()
+
+  output_path = input("What is the name of the file?")
+  secret_text = Steganography.decode(output_path)
+  new_chat = {
+      "message": secret_text,
+      "time": datetime.now(),
+      "sent_by_me": False
+  }
+
+  friend[sender]['chats'].append(new_chat)
+  print ("Your secret message has been saved!")
+
 
 #defining a function menu_choice to display message for default user
 def start_chat(name,salutation,age,rating):
@@ -76,6 +125,11 @@ def start_chat(name,salutation,age,rating):
       elif answer==2:
           number_of_friends=add_friend()
           print("you have %d friends"%(number_of_friends))
+      elif answer==3 :
+          send_message()
+      elif answer==4 :
+          read_message()
+
       elif answer==6:
           continue_app=False
 
@@ -86,7 +140,7 @@ def start_chat(name,salutation,age,rating):
 #asking user if he/she want to create a new user or continue with default
 user_choice=input("Do you want to continue as " +default_spy['salutation']+default_spy['name']+" or create a new one (def or new):\n")
 
-if user_choice.lower()=="def":
+if user_choice.lower()=='def':
     start_chat(default_spy['name'],default_spy['salutation'],default_spy['age'],default_spy['rating'])
 elif user_choice.lower()=="new":
     #Greeting the user
