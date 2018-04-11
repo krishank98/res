@@ -39,7 +39,7 @@ def add_status(current_status):
         new_status=status_messages[status_choice-1]
         return new_status
     else :
-        updated_status=raw_input(input("enter status:\n"))
+        updated_status=raw_input("enter status:\n")
         if len(updated_status)>0:
             status_messages.append(updated_status)
             print("new status has been added\n")
@@ -104,9 +104,9 @@ def read_message():
   sender = select_a_friend()
 
 
-  output_path = raw_input("What is the name of the file?")
+  output_path = raw_input("What is the name of the file?(output.jpg)")
   secret_text_1 = Steganography.decode(output_path)
-  print secret_text_1
+  print "message is: "+secret_text_1
 
   chat = ChatMessage(spy_name=spy.name, friend_name=sender, time=datetime.now().strftime("%d %B %Y"),message=secret_text_1)
   friends[sender].chats.append(chat)
